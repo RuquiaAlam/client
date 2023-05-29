@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import {BrowserRouter,Routes,Route} from "react-router-dom"
 import './App.css';
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { useSelector} from "react-redux";
+import Spinner from "./components/Spinner";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import ApplyDoctor from "./pages/ApplyDoctor";
+
 
 function App() {
+
+  const {loading} = useSelector(state => state.alerts);
+  //target reducer
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+    {/* container */}
+<BrowserRouter>
+{loading ? (
+<Spinner/>
+ ) : (
+<Routes>
+  <Route path ="/" element = {
+  <ProtectedRoute>
+    <HomePage />
+    </ProtectedRoute>}></Route>
+
+    <Route path ="/apply-doctor" element = {
+  <ProtectedRoute>
+    <ApplyDoctor/>
+    </ProtectedRoute>}></Route>
+    
+  <Route path="login" element = {
+  <PublicRoute>
+  <Login/>
+  </PublicRoute>
+}></Route>
+  <Route path="register" element= {
+  <PublicRoute>
+    <Register/>
+    </PublicRoute>}></Route>
+
+
+</Routes>
+)}
+
+</BrowserRouter>
+  </>
   );
 }
 
