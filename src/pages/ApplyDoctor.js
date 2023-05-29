@@ -23,7 +23,7 @@ const res = await axios.post('/api/v1/user/apply-doctor',{...values,userId:user.
 {
     headers:
     {
-        Authorization :`Bearer ${localStorage.getItem('token')}`
+        Authorization:`Bearer ${localStorage.getItem('token')}`
 
 }});
 dispatch.hideLoading();
