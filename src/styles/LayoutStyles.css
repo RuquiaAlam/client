@@ -36,8 +36,9 @@
   height:85vh;
   margin-bottom: 20px;
   box-shadow: 0 0 2px gray ;
-  background-color: white;;
-
+  background-color: rgb(147, 129, 129);
+  background-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2EUXM__epm6ebB48KSxS19xmdagVExDsgg9I8_DbILA&s";
+background-image: cover;;
 }
 .logo h6{
     font: size 1.5rem;

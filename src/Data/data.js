@@ -40,13 +40,13 @@ export const adminMenu = [
     },
     {
         name:"Users",
-        path :"/users",
+        path :"/admin/users",
         icon:"fa-solid fa-user"
     },
 
     {
-        name:"Doctor",
-        path :"/doctor",
+        name:"Doctors",
+        path :"/admin/doctors",
         icon :"fa-solid fa-user-doctor"
         },
         
@@ -55,9 +55,9 @@ export const adminMenu = [
             path :"/profile",
             icon :"fa-solid fa-user",
         },
-        {
-            name:"Logout",
-            path :"/logout",
-            icon :"fa-solid fa-right-from-bracket"
-        }
+        // {
+        //     name:"Logout",
+        //     path :"/logout",
+        //     icon :"fa-solid fa-right-from-bracket"
+        // }
 ];

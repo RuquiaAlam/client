@@ -18,16 +18,16 @@ const Login = () => {
 //network req based on axios
     try{
       dispatch(showLoading())
-      const res = await axios.post("/api/v1/user/login",(values),
+      const res = await axios.post("/api/v1/user/login",values);
       
 
-      {
+      // {
 
-             headers:{
-                    "Content-Type":'application/json'
-             }
-      }
-      );
+      //        headers:{
+      //               "Content-Type":'application/json'
+      //        }
+      // }
+      // );
       window.location.reload();
 
 dispatch(hideLoading());
