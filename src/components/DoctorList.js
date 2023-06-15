@@ -1,3 +1,4 @@
+import { bold } from 'colors';
 import React from 'react'
 import {useNavigate} from "react-router-dom"
 
@@ -6,8 +7,8 @@ const DoctorList = ({doctor}) => {
 
   return (
    <>
-   <div className="card m-2 " style ={{cursor:"pointer"}} onClick ={( ) =>  navigate(`/doctor/Events/${doctor._id}`)}>
-    <div className="card-header">
+   <div className="card m-2 " style ={{cursor:"pointer" ,width:"240px", height:"220px"}} onClick ={( ) =>  navigate(`/doctor/book-events/${doctor._id}`)}>
+    <div className="card-header" >
         {doctor.firstName} {doctor.lastName}
     </div>
     <div className="card-body ">

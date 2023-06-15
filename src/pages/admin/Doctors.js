@@ -1,7 +1,8 @@
 import React ,{useState,useEffect}from 'react'
-import Layout from '../../components/Layout'
+
 import axios from 'axios';
 import { Table, message } from 'antd';
+import Layout from '../../components/Layout'
 
 
 const Doctors = () => {

@@ -7,18 +7,22 @@ import moment from "moment"
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading ,showLoading} from '../redux/features/alertSlice';
 
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
 const Events = () => {
-    const {user} =useSelector((state)=> state.user)
+    const  { user } = useSelector(state => state.user)
 
 
     const [ doctors , setDoctors ] = useState([]);
     const params = useParams();
     const [date,setDate] = useState();
     const [time,setTime]= useState();
-    const [isAvailable,setIsAvailable] = useState()
-    const dispatch =useDispatch();
+    const [isAvailable,setIsAvailable] = useState();
+    const dispatch = useDispatch();
+   
+  
+let momentOne = moment();
+console.log(momentOne)
 
 
     // login user data
@@ -30,7 +34,7 @@ const Events = () => {
     {
       headers:{
    
-        Accept:'application/json',
+   
         Authorization: `Bearer ${localStorage.getItem('token')}`
    
       },
@@ -52,19 +56,20 @@ const Events = () => {
 const handleEvents = async ()=>
 {
     try{
+      setIsAvailable(true);
+      if(!date && !time ){
+         return alert ("date and Time required")
+      }
 dispatch(showLoading());
 const res = await axios.post('/api/v1/user/book-events',
 {
 
-    doctorId:params.doctorId,
-    userId:user._id,
-    doctorInfo:doctors,
-    userInfo:user,
-    date:date,
-    time:time,
-
-
-
+    doctorId : params.doctorId,
+    userId : user._id,
+    doctorInfo : doctors,
+    userInfo : user,
+    date : date,
+    time : time
 },
 {
     headers:{
@@ -93,7 +98,42 @@ if(res.data.success)
         // ====events function=======
 
 
+const handleAvailability =async() =>{
 
+  try{
+    dispatch(showLoading())
+    const res = await axios.post( "/api/v1/user/booking-availability",
+    {
+      doctorId :params.doctorId,
+      date:date,
+      time:time
+    },
+    {
+      headers:
+      {
+        Authorization:`Bearer ${ localStorage.getItem("token")}`
+      }
+    })
+    dispatch(hideLoading());
+    if(res.data.success)
+    {
+      setIsAvailable(true)
+      message.success(res.data.message)
+
+    }
+    else
+    {
+       message.error(res.data.message)
+    }
+
+  }
+  catch(error)
+  {
+    dispatch(hideLoading())
+    console.log(error)
+  }
+
+}
     useEffect (()=>
     {
   
@@ -103,29 +143,33 @@ if(res.data.success)
   
   return (
     <Layout>
-   <h3 className='heading m-3'>Events</h3>
-   < div className="container">
+   <h3>Booking Page</h3>
+   < div className="container m-2">
 
         {doctors && (
             <>
   <h4>  {doctors.firstName} {doctors.lastName} </h4>
      <h4> Fees:${doctors.feesPerConsultation} </h4>
      <h4>
-        Timings: {doctors.timings && doctors.timings[0]}- {""}
-        {doctors.timings && doctors.timings[1]} {""}
+        Timings: {doctors.timings && doctors.timings[0]}- {" "}
+        {doctors.timings && doctors.timings[1]} {" "}
         
      </h4>
      <div className="d-flex flex-column w-50">
         
-<DatePicker className='m-2' format ="DD-MM-YYYY" onChange={(value)=> setDate(moment(value).format("DD-MM-YY"))}/>
-<TimePicker format="HH:mm" className="m-2"  onChange = {(value) => setTime(moment(value).format("HH:mm"))}/>
+<DatePicker className='m-2' format ="DD-MM-YYYY" onChange={
+  (value)=> { setIsAvailable(false)  
+   setDate(moment(value).format("DD-MM-YYYY"))}}/>
+<TimePicker format="HH:mm" className="m-2"  onChange = {(value) => {
+  setIsAvailable(false)
+  setTime(moment(value).format("HH:mm"))}}/>
 
-        <button className='btn btn-primary mt-2'>
+        <button className='btn btn-primary mt-2' onClick={handleAvailability}>
 Check Availability
         </button>
-        <button className='btn btn-dark mt-2' onClick = {handleEvents}>
+      {!isAvailable &&   <button className='btn btn-dark mt-2' onClick = {handleEvents}>
 Book Now
-        </button>
+        </button>}
      </div>
             </>
 

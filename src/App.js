@@ -14,6 +14,8 @@ import Doctors from "./pages/admin/Doctors";
 
 import Profile from "./pages/doctor/Profile";
 import Events from "./pages/Events";
+import Appointments from "./pages/Appointments";
+import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 
 
 function App() {
@@ -51,7 +53,7 @@ function App() {
   <ProtectedRoute>
     <Profile />
     </ProtectedRoute>}></Route>
-    <Route path ="/doctor/Events/:doctorId" element = {
+    <Route path ="/doctor/book-events/:doctorId" element = {
   <ProtectedRoute>
     <Events/>
     </ProtectedRoute>}></Route>
@@ -60,16 +62,24 @@ function App() {
   <ProtectedRoute>
     <NotificationPage/>
     </ProtectedRoute>}></Route>
-  <Route path="login" element = {
+  <Route path="/login" element = {
   <PublicRoute>
   <Login/>
   </PublicRoute>
 }></Route>
-  <Route path="register" element= {
+  <Route path="/register" element= {
   <PublicRoute>
     <Register/>
     </PublicRoute>}></Route>
 
+    <Route path="/doctor-appointments" element= {
+  <ProtectedRoute>
+    <DoctorAppointments />
+    </ProtectedRoute>}></Route>
+    <Route path="/appointments" element= {
+  <ProtectedRoute>
+    <Appointments/>
+    </ProtectedRoute>}></Route>
 
 </Routes>
 )}

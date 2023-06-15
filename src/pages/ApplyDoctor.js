@@ -20,10 +20,9 @@ const ApplyDoctor = () => {
 
         try {
             dispatch(showLoading());
-            const res = await axios.post('/api/v1/user/apply-doctor', { ...values, userId: user._id ,timings:[
-                moment(values.timings[0]).format('HH:mm'),
-                moment(values.timings[1]).format('HH:mm'),
-            ]},
+            const res = await axios.post('/api/v1/user/apply-doctor', 
+            { ...values, userId: user._id },
+            
                 {
                     headers:
                     {
@@ -113,7 +112,7 @@ const ApplyDoctor = () => {
                         </Form.Item></Col>
                     <Col xs={24} md={24} lg={8}>
                         <Form.Item label="Timing" name="timings" >
-                            <TimePicker.RangePicker format="HH:mm" />
+                            <TimePicker.RangePicker format = "HH:mm" />
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={24} lg={8}></Col>

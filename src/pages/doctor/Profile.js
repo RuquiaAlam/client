@@ -27,7 +27,14 @@ const Profile = () => {
 
     try {
         dispatch(showLoading());
-        const res = await axios.post('/api/v1/doctor/updateProfile', { ...values, userId: user._id },
+        const res = await axios.post('/api/v1/doctor/updateProfile', { ...values, userId: user._id ,
+        timings:[
+            moment(values.timings[0].format('HH:mm')),
+            moment(values.timings[1].format('HH:mm'))
+
+        ]
+    },
+
             {
                 headers:
                 {
@@ -93,8 +100,9 @@ if(res.data.success){
     <Layout>
         <h1>Manage Profile </h1>
         { doctor && (
-          <Form layout="vertical" onFinish = {handleFinish} className="m-3" initialValues={{...doctor,timings:[
-            moment(doctor.timings[0],'HH:mm'),
+          <Form layout="vertical" onFinish = {handleFinish} className="m-3" initialValues={{...doctor,
+            timings:[
+            moment(doctor.timings[0],"HH:mm"),
             moment(doctor.timings[1],'HH:mm')
           ]}}>
           <h4 className="text">
@@ -150,6 +158,7 @@ if(res.data.success){
                   <Form.Item label="Fees Per Consultation" name="feesPerConsultation"  required rules={[{ require: true }]}>
                       <Input type="text" placeholder="feesPerConsultation" />
                   </Form.Item></Col>
+
               <Col xs={24} md={24} lg={8}>
                   <Form.Item label="Timing" name="timings" >
                       <TimePicker.RangePicker format="HH:mm" />

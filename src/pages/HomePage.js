@@ -51,7 +51,7 @@ catch(error)
      <Row>
 
      {doctors && doctors.map((doctor)=>
-    <DoctorList  doctor={doctor}/>
+    <DoctorList  doctor = {doctor}/>
      )}
       
 
